@@ -4315,7 +4315,7 @@ check_handovers(
 }
 
 void
-rrc_eNB_x2_uecontextrelease(struct rrc_eNB_ue_context_s *ue_context, instance_t instance)
+rrc_eNB_x2_uecontextrelease(struct rrc_eNB_ue_context_s *ue_context_p, instance_t instance)
 {
         MessageDef *msg;
         // Configure target
