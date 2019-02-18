@@ -4331,7 +4331,7 @@ rrc_eNB_x2_uecontextrelease(struct rrc_eNB_ue_context_s *ue_context_p, instance_
         //X2AP_HANDOVER_REQ_ACK(msg).nb_e_rabs_tobesetup = ue_context_p->ue_context.setup_e_rabs;
 
         itti_send_msg_to_task(TASK_X2AP, instance, msg);
-        LOG_I(RRC, "RRC Sends X2 UE Context Release to the source eNB at frame %d and subframe %d \n", ctxt_pP->frame,ctxt_pP->subframe);
+        LOG_I(RRC, "RRC Sends X2 UE Context Release to the source eNB at  \n");
       
 
 }
