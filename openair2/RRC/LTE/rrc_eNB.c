@@ -4314,6 +4314,28 @@ check_handovers(
   }
 }
 
+void
+rrc_eNB_x2_uecontextrelease(ue_xontext_p);
+{
+        MessageDef *msg;
+        // Configure target
+        //ue_context_p->ue_context.handover_info->state = HO_CONFIGURED;
+        msg = itti_alloc_new_message(TASK_RRC_ENB, X2AP_UE_CONTEXT_RELEASE);
+
+        //rrc_eNB_configure_rbs_handover(ue_context_p,ctxt_pP);
+        /* TODO: remove this hack */
+        //X2AP_HANDOVER_REQ_ACK(msg).target_mod_id = 1 - ctxt_pP->module_id;
+        X2AP_HANDOVER_REQ_ACK(msg).target_mod_id = ue_context_p->ue_context.handover_info->modid_t;
+        //X2AP_HANDOVER_REQ_ACK(msg).source_x2id = ue_context_p->ue_context.handover_info->source_x2id;
+        /* Call admission control not implemented yet */
+        //X2AP_HANDOVER_REQ_ACK(msg).nb_e_rabs_tobesetup = ue_context_p->ue_context.setup_e_rabs;
+
+        itti_send_msg_to_task(TASK_X2AP, ENB_MODULE_ID_TO_INSTANCE(ctxt_pP->module_id), msg);
+        LOG_I(RRC, "RRC Sends X2 UE Context Release to the source eNB at frame %d and subframe %d \n", ctxt_pP->frame,ctxt_pP->subframe);
+      
+
+}
+
 #if 0
 //-----------------------------------------------------------------------------
 void
@@ -8172,7 +8194,15 @@ void *rrc_enb_process_itti_msg(void *notUsed) {
 
     case S1AP_PATH_SWITCH_REQ_ACK:
       LOG_I(RRC, "[eNB %d] received path switch ack %s\n", instance, msg_name_p);
-      rrc_eNB_process_S1AP_PATH_SWITCH_REQ_ACK(msg_p, msg_name_p, instance);
+      if (0==rrc_eNB_process_S1AP_PATH_SWITCH_REQ_ACK(msg_p, msg_name_p, instance))
+      {
+	 struct rrc_eNB_ue_context_s        *ue_context_p = NULL;
+         ue_context_p = rrc_eNB_get_ue_context(RC.rrc[instance], ctxt.rnti);
+	 DevAssert(ue_context_p != NULL);
+
+         rrc_eNB_x2_uecontextrelease(ue_xontext_p);
+      }
+      
       break;
 #   endif
 

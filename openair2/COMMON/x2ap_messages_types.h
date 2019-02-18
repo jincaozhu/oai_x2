@@ -33,7 +33,7 @@
 #define X2AP_HANDOVER_REQ_ACK(mSGpTR)           (mSGpTR)->ittiMsg.x2ap_handover_req_ack
 #define X2AP_REGISTER_ENB_CNF(mSGpTR)           (mSGpTR)->ittiMsg.x2ap_register_enb_cnf
 #define X2AP_DEREGISTERED_ENB_IND(mSGpTR)       (mSGpTR)->ittiMsg.x2ap_deregistered_enb_ind
-
+#define X2AP_UE_CONTEXT_RELEASE(mSGpTR)		(mSGpTR)->ittiMsg.x2ap_ue_context_release
 
 #define X2AP_MAX_NB_ENB_IP_ADDRESS 2
 
@@ -190,5 +190,15 @@ typedef struct x2ap_handover_req_ack_s {
 
   uint32_t mme_ue_s1ap_id;
 } x2ap_handover_req_ack_t;
+
+typedef struct x2ap_ue_context_release_s {
+  int source_rnti;                       /* TODO: to be fixed/remove */
+  int source_x2id;                       /* TODO: to be fixed/remove */
+  /* TODO: this parameter has to be removed */
+  int target_mod_id;
+
+} x2ap_ue_context_release_t;
+
+
 
 #endif /* X2AP_MESSAGES_TYPES_H_ */
