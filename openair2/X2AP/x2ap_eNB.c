@@ -80,8 +80,8 @@ void x2ap_eNB_handle_handover_req_ack(instance_t instance,
                                       x2ap_handover_req_ack_t *x2ap_handover_req_ack);
 
 static
-void x2ap_eNB_handle_handover_req_ack(instance_t instance,
-                                      x2ap_ue_context_release_t *x2ap_ue_context_release);
+void x2ap_eNB_handle_ue_context_release(instance_t instance,
+					x2ap_ue_context_release_t *x2ap_ue_context_release);
 
 
 static
@@ -437,7 +437,7 @@ void x2ap_eNB_handle_ue_context_release(instance_t instance,
 
   target = x2ap_is_eNB_id_in_list(target_enb_id);
   DevAssert(target != NULL);
-  x2ap_eNB_generate_x2_ue_context_release (target)
+  x2ap_eNB_generate_x2_ue_context_release (target);
 
 }
 
