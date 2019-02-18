@@ -4315,7 +4315,7 @@ check_handovers(
 }
 
 void
-rrc_eNB_x2_uecontextrelease(ue_xontext_p)
+rrc_eNB_x2_uecontextrelease(struct rrc_eNB_ue_context_s *ue_context, instance_t instance)
 {
         MessageDef *msg;
         // Configure target
@@ -8200,7 +8200,7 @@ void *rrc_enb_process_itti_msg(void *notUsed) {
          ue_context_p = rrc_eNB_get_ue_context(RC.rrc[instance], ctxt.rnti);
 	 DevAssert(ue_context_p != NULL);
 
-         rrc_eNB_x2_uecontextrelease(ue_context_p);
+         rrc_eNB_x2_uecontextrelease(ue_context_p, instance);
       }
       
       break;

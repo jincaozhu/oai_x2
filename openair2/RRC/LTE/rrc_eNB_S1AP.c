@@ -2168,9 +2168,6 @@ int rrc_eNB_process_S1AP_PATH_SWITCH_REQ_ACK (MessageDef *msg_p, const char *msg
 	     S1AP_PATH_SWITCH_REQ_ACK (msg_p).next_security_key,
 	     SECURITY_KEY_LENGTH);
 
-    //send x2_uecontext_release
-    
-
     return (0);
   }
 }
