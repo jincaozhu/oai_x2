@@ -71,6 +71,13 @@ int x2ap_eNB_handle_handover_response (instance_t instance,
                                       uint32_t stream,
                                       X2AP_X2AP_PDU_t *pdu);
 
+static
+int x2ap_eNB_handle_ue_context_release(instance_t instance,
+                                       uint32_t assoc_id,
+                                       uint32_t stream,
+                                       X2AP_X2AP_PDU_t *pdu);
+
+
 /* Handlers matrix. Only eNB related procedure present here */
 x2ap_message_decoded_callback x2ap_messages_callback[][3] = {
   { x2ap_eNB_handle_handover_preparation, x2ap_eNB_handle_handover_response, 0 }, /* handoverPreparation */
@@ -78,7 +85,7 @@ x2ap_message_decoded_callback x2ap_messages_callback[][3] = {
   { 0, 0, 0 }, /* loadIndication */
   { 0, 0, 0 }, /* errorIndication */
   { 0, 0, 0 }, /* snStatusTransfer */
-  { 0, 0, 0 }, /* uEContextRelease */
+  { x2ap_eNB_handle_ue_context_release, 0, 0 }, /* uEContextRelease */
   { x2ap_eNB_handle_x2_setup_request, x2ap_eNB_handle_x2_setup_response, x2ap_eNB_handle_x2_setup_failure }, /* x2Setup */
   { 0, 0, 0 }, /* reset */
   { 0, 0, 0 }, /* eNBConfigurationUpdate */
@@ -697,5 +704,15 @@ int x2ap_eNB_handle_handover_response (instance_t instance,
   X2AP_HANDOVER_REQ_ACK(msg).rrc_buffer_size = c->size;
 
   itti_send_msg_to_task(TASK_RRC_ENB, x2ap_eNB_data->x2ap_eNB_instance->instance, msg);
+  return 0;
+}
+
+
+static
+int x2ap_eNB_handle_ue_context_release(instance_t instance,
+                                       uint32_t assoc_id,
+                                       uint32_t stream,
+                                       X2AP_X2AP_PDU_t *pdu)
+{
   return 0;
 }
