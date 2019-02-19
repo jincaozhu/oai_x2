@@ -467,14 +467,14 @@ void *x2ap_task(void *arg) {
                                      &X2AP_HANDOVER_REQ(received_msg));
         break;
 
-      case X2AP_HANDOVER_REQ_ACK:
+      case X2AP_UE_CONTEXT_RELEASE:
         x2ap_eNB_handle_ue_context_release(ITTI_MESSAGE_GET_INSTANCE(received_msg),
-                                         &X2AP_HANDOVER_REQ_ACK(received_msg));
+                                         &X2AP_UE_CONTEXT_RELEASE(received_msg));
         break;
 
-      case X2AP_UE_CONTEXT_RELEASE:
+      case X2AP_HANDOVER_REQ_ACK:
         x2ap_eNB_handle_handover_req_ack(ITTI_MESSAGE_GET_INSTANCE(received_msg),
-                                         &X2AP_UE_CONTEXT_RELEASE(received_msg));
+                                         &X2AP_HANDOVER_REQ_ACK(received_msg));
         break;
 
       case SCTP_INIT_MSG_MULTI_CNF:
